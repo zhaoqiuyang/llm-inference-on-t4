@@ -1,0 +1,4 @@
+metric,value,unit,note
+copy_bandwidth,243,GB/s,512 MB device-to-device copy (read+write)
+fp16_gemm_short,17.5,TFLOPS,8192^2 GEMM; 20 iters after vLLM sweep
+fp16_gemm_sustained,18.8,TFLOPS,8192^2 GEMM; ~50 s sustained with clock logging
