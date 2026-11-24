@@ -456,7 +456,15 @@ were caught.
    unavailable, and fell back to Triton attention and a slower sampler.
    Read the engine's startup log: it tells you which kernels you are
    actually benchmarking.
-10. **7B fp16 does not fit on a 15 GB card** (~15.2 GB of weights alone, with
+10. **Restart the kernel after installing vLLM into a running notebook.**
+    vLLM 0.34.0 declares `nvidia-cutlass-dsl` as a dependency and imports
+    it during kernel warmup on any CUDA GPU. The package registers its import
+    path through a `.pth` file, which Python only reads at startup. Installing
+    vLLM into an already-running Jupyter kernel and loading a model without
+    restarting therefore fails with `No module named 'cutlass'`. The real
+    error appeared only in the `(EngineCore ...)` log lines above the generic
+    "Engine core initialization failed" traceback.
+11. **7B fp16 does not fit on a 15 GB card** (~15.2 GB of weights alone, with
     nothing left for KV cache). Quantization was required, not optional.
 
 ---
